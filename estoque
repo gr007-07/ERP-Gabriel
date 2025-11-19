@@ -1,0 +1,117 @@
+
+import matplotlib as plt
+
+print('\nBem vindo ao seu ERP de Estoque !')
+print("Para acessar digite s ")
+print("Para sair digite n ")
+acessar = "s"
+
+erp = []
+gerar_id = 1
+
+def adicionar():
+  global gerar_id
+  nome_produto = input("Insira o nome do produto: ")
+  categoria = input("Insira qual a categoria do produto: ")
+
+  try:
+    quantidade = int(input("Digite a quantidade do produto: "))
+  except ValueError:
+    print("valor Inválido")
+    return
+
+  try:
+   preço = float(input("Digite o valor do produto: "))
+  except ValueError:
+   print("Valor Inválido")
+   return
+
+  valor_total = preço * quantidade
+
+  produtos = {
+      "id": gerar_id,
+      "nome": nome_produto,
+      "categoria": categoria,
+      "quantidade": quantidade,
+      "valor": preço,
+      "valor_total": valor_total
+  }
+  erp.append(produtos)
+  print(f"[ok] Item cadastrado com ID: {gerar_id}. Nome: {nome_produto}")
+  gerar_id += 1
+
+def mostrar_lista():
+  if not erp:
+    print("\n Estoque Vazio.")
+
+  for produto in erp:
+    print(f"{produto['id']}    {produto['nome']}    {produto['categoria']}    {produto['valor_total']:.2f}")
+
+def delete_produto():
+   if not erp:
+     print("\n Não há produtos para excluir.")
+     return
+   try:
+     id_excluir = int(input("Digite o ID do produto que deseja excluir: "))
+   except ValueError:
+     print(" Error .")
+     return
+
+   for produto in erp:
+      if produto["id"] == id_excluir:
+          erp.remove(produto)
+          print(f" item excluído com sucesso! .")
+          return
+   print(f"Error, ID não encontrado. ")
+
+def grafico_estoque():
+    if not erp:
+        print("\nNão há produtos cadastrados para gerar gráfico.")
+        return
+
+    nomes = [produto["nome"] for produto in erp]
+    quantidades = [produto["quantidade"] for produto in erp]
+
+    plt.figure(figsize=(6, 3))
+    plt.bar(nomes, quantidades,)
+    plt.title("Estoque por Produto")
+    plt.xlabel("Produtos")
+    plt.ylabel("Quantidade")
+    plt.tight_layout()
+    plt.show()
+
+
+def menu():
+    while True:
+        print("\nMenu ERP:")
+        print("1) Cadastrar item")
+        print("2) Listar itens")
+        print("3) Excluir item")
+        print("4) Gerar gráfico do estoque")
+        print("n) Sair")
+
+        opcao = input("Escolha: ")
+
+        if opcao == "1":
+            adicionar()
+        elif opcao == "2":
+            mostrar_lista()
+        elif opcao == "3":
+            delete_produto()
+        elif opcao == "4":
+            grafico_estoque()
+        elif opcao.lower() == "n":
+            print("Saindo do menu...")
+            return "n"
+        else:
+            print("Opção inválida!")
+
+
+while acessar == "s":
+    voltar = menu()
+    if voltar == "n":
+        break
+    acessar = input("Deseja continuar no ERP? (s/n): ")
+    if acessar.lower() != "s":
+        break
+print("Saindo do ERP.")
