@@ -1,0 +1,27 @@
+##COMO RODAR O SISTEMA ##
+
+Instale o METPLOTLIB pelo comando 'pip install matplotlib' em sua maquina ou venv
+
+criar uma venv -> python -m venv "nome_venv"
+após isso ligue-a -> .\nome_venv\Scripts\Activate.ps1 
+instale o matplotlib -> pip install matplotlib 
+
+Rode o programa com -> python .\JV-UDf.py
+
+##Functions:##
+
+menu de etrada:
+no codigo tem as 5 opções 
+adicionar 
+remover
+ver estoque 
+e gerar grafico 
+
+
+no menu de adiconar produto: você pode inserir nome, categoria, quantidade e valor 
+
+no menu de remover permite o usuario remover a quantidade de produto desejada de acordo com o id do produto 
+
+no menu de estoque permite o usuario vizualiza todas as informações do estoque: nome, categoria, valor, quantidade e valor total do estoque
+
+no menu de gerara grafico exibe as informações de estoque em formato de grafico
